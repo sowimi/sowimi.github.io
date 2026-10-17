@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Andrey Muravyovv</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #000;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #fff;
+    }
+
+    .card {
+      text-align: center;
+      max-width: 420px;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: #888;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      color: #fff;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: #2a2a2a;
+      border-color: #555;
+      transform: translateY(-2px);
+    }
+
+    .btn.primary {
+      background: #fff;
+      color: #000;
+      border-color: #fff;
+    }
+
+    .btn.primary:hover {
+      background: #e0e0e0;
+      border-color: #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Andrey Muravyov</h1>
+    <p class="subtitle">Добро Пожаловать!</p>
+
+    <div class="buttons">
+      <a href="#" class="btn">📁 Проекты</a>
+    </div>
+  </div>
+</body>
+</html>
