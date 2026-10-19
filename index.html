@@ -196,6 +196,9 @@
             text-decoration: none;
             transition: opacity 0.2s;
             white-space: nowrap;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
         }
 
         .btn:active { opacity: 0.7; }
@@ -219,20 +222,17 @@
             transition: height 0.4s ease;
         }
 
-        /* Верхний контейнер (увеличен под новый текст) */
         .subtitle-container {
-            height: 70px; /* Было 50px — увеличили под $1,000,000 и перенос */
+            height: 70px;
             margin-top: 20px;
             margin-bottom: 25px;
         }
 
-        /* Нижний контейнер */
         .bottom-container {
             height: 30px;
             margin-top: 25px;
         }
 
-        /* Общие стили */
         .subtitle, .bottom-text {
             position: absolute;
             top: 0;
@@ -248,21 +248,20 @@
             color: #1d1d1f;
         }
 
-        /* Новый текст: сумма крупнее, тире и продолжение с новой строки */
         .text-new.subtitle {
-            font-size: 19px; /* Оставляем базовый размер */
+            font-size: 19px;
         }
 
         .text-new .big-amount {
-            font-size: 32px; /* Крупная сумма */
+            font-size: 32px;
             font-weight: 700;
-            display: block; /* Переносим на отдельную строку */
+            display: block;
             line-height: 1.1;
             margin-bottom: 4px;
         }
 
         .text-new .amount-tail {
-            display: block; /* Тире и продолжение — на новой строке */
+            display: block;
             font-size: 17px;
             color: #86868b;
             font-weight: 400;
@@ -274,7 +273,6 @@
             color: #86868b;
         }
 
-        /* По умолчанию видим старый текст, новый скрыт */
         .text-old {
             opacity: 1;
             transform: translateY(0);
@@ -371,19 +369,45 @@
             background: #fff;
             transform: rotateY(180deg);
             z-index: 1;
+            position: relative;
         }
 
-        .card-back img {
+        /* --- ТРИ СЛОЯ НА ОБРАТНОЙ СТОРОНЕ --- */
+        .card-back-img {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: top;
             display: block;
-            transition: filter 0.3s ease;
+            transition: filter 0.3s ease, opacity 0.5s ease;
         }
 
-        .card-back img.color { filter: grayscale(0%); }
-        .card-back img.bw { filter: grayscale(100%); }
+        /* Хамелеон */
+        .card-back-img.chameleon {
+            z-index: 1;
+        }
+        .card-back-img.chameleon.bw { filter: grayscale(100%); }
+        .card-back-img.chameleon.color { filter: grayscale(0%); }
+
+        /* Гифки (изначально скрыты) */
+        .card-back-img.gif-1,
+        .card-back-img.gif-2 {
+            opacity: 0;
+            z-index: 2;
+        }
+
+        /* Показ гифки 1 */
+        .card-back.show-gif-1 .chameleon { opacity: 0; }
+        .card-back.show-gif-1 .gif-1 { opacity: 1; }
+        .card-back.show-gif-1 .gif-2 { opacity: 0; }
+
+        /* Показ гифки 2 */
+        .card-back.show-gif-2 .chameleon { opacity: 0; }
+        .card-back.show-gif-2 .gif-2 { opacity: 1; }
+        .card-back.show-gif-2 .gif-1 { opacity: 0; }
 
         .social-section {
             padding-top: 30px;
@@ -492,7 +516,6 @@
                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg?utm_source=ru.wikipedia.org&utm_campaign=index&utm_content=original" alt="Nike" class="title-icon-big-side logo-nike">
             </div>
             
-            <!-- Верхний текст: старый и новый -->
             <div class="text-container subtitle-container" id="subtitleContainer">
                 <p class="subtitle text-old">
                     Обстоятельства порой<br>сильнее нас.
@@ -503,21 +526,28 @@
                 </p>
             </div>
 
-            <!-- Карта -->
             <div class="card-wrapper">
                 <div class="card-scene" id="flipCardScene">
                     <div class="card" id="flipCard">
                         <div class="card-side card-front">
                             <div class="card-name">Andrey Muravyov</div>
                         </div>
-                        <div class="card-side card-back">
-                            <img src="https://thumb.wikimedia.org/wikipedia/ru/thumb/9/91/Chameleon_%28Dmitri_Smerdyakov%29.png/960px-Chameleon_%28Dmitri_Smerdyakov%29.png?utm_source=ru.wikipedia.org&utm_campaign=parser&utm_content=thumbnail" alt="Chameleon Art" id="chameleonImg" class="bw">
+                        <div class="card-side card-back" id="cardBack">
+                            <!-- Хамелеон -->
+                            <img src="https://thumb.wikimedia.org/wikipedia/ru/thumb/9/91/Chameleon_%28Dmitri_Smerdyakov%29.png/960px-Chameleon_%28Dmitri_Smerdyakov%29.png?utm_source=ru.wikipedia.org&utm_campaign=parser&utm_content=thumbnail" alt="Chameleon Art" id="chameleonImg" class="card-back-img chameleon bw">
+                            
+                            <!-- ГИФКА 1 (для кнопки «Поехали») -->
+                            <!-- ЗАМЕНИ ССЫЛКУ -->
+                            <img src="https://c.tenor.com/iIQj7WAkiyQAAAAd/tenor.gif" alt="GIF 1" class="card-back-img gif-1">
+                            
+                            <!-- ГИФКА 2 (для кнопки «Узнать больше») -->
+                            <!-- ЗАМЕНИ ССЫЛКУ -->
+                            <img src="https://c.tenor.com/Lw4_T2lRPGoAAAAd/tenor.gif" alt="GIF 2" class="card-back-img gif-2">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Нижний текст: старый и новый -->
             <div class="text-container bottom-container" id="bottomContainer">
                 <p class="bottom-text text-old">
                     Вы умнее — вам виднее.
@@ -527,10 +557,9 @@
                 </p>
             </div>
 
-            <!-- Кнопки -->
             <div class="buttons" id="actionButtons">
-                <a href="#" class="btn btn-primary">Поехали</a>
-                <a href="#" class="btn btn-secondary">Узнать больше</a>
+                <button id="btnGo" class="btn btn-primary">Поехали</button>
+                <button id="btnMore" class="btn btn-secondary">Узнать больше</button>
             </div>
         </section>
 
@@ -572,6 +601,7 @@
         const cardScene = document.getElementById('flipCardScene');
         const card = document.getElementById('flipCard');
         const chameleonImg = document.getElementById('chameleonImg');
+        const cardBack = document.getElementById('cardBack');
         const actionButtons = document.getElementById('actionButtons');
         const subtitleContainer = document.getElementById('subtitleContainer');
         const bottomContainer = document.getElementById('bottomContainer');
@@ -579,6 +609,7 @@
         let isShowingName = false;
         let imageShowCount = 1;
         let hasFlippedOnce = false;
+        let isUnlocked = false;
         const COLOR_START = 5;
 
         cardScene.addEventListener('click', function() {
@@ -598,14 +629,71 @@
                     chameleonImg.classList.add('color');
                     card.classList.add('gold-border');
                     
-                    // Плавная смена текстов
                     subtitleContainer.classList.add('changed');
                     bottomContainer.classList.add('changed');
+                    
+                    isUnlocked = true;
                 } else {
                     chameleonImg.classList.remove('color');
                     chameleonImg.classList.add('bw');
                 }
             }
+        });
+
+        // --- Уведомление в шапке ---
+        const headerNotice = document.getElementById('headerNotice');
+        let noticeTimeout;
+
+        function showNotice(text) {
+            clearTimeout(noticeTimeout);
+            headerNotice.textContent = text;
+            headerNotice.classList.add('show');
+
+            noticeTimeout = setTimeout(() => {
+                headerNotice.classList.remove('show');
+            }, 4000);
+        }
+
+        // --- Вспомогательная функция: перевернуть карту на картинку ---
+        function flipToImage() {
+            if (isShowingName) {
+                card.classList.remove('is-flipped');
+                isShowingName = false;
+            }
+        }
+
+        // --- Кнопка «Поехали» (гифка 1) ---
+        const btnGo = document.getElementById('btnGo');
+        btnGo.addEventListener('click', function() {
+            if (isUnlocked) {
+                // Показываем гифку 1
+                cardBack.classList.remove('show-gif-2');
+                cardBack.classList.add('show-gif-1');
+                flipToImage();
+            } else {
+                showNotice('пока функционала нет');
+            }
+        });
+
+        // --- Кнопка «Узнать больше» (гифка 2) ---
+        const btnMore = document.getElementById('btnMore');
+        btnMore.addEventListener('click', function() {
+            if (isUnlocked) {
+                // Показываем гифку 2
+                cardBack.classList.remove('show-gif-1');
+                cardBack.classList.add('show-gif-2');
+                flipToImage();
+            } else {
+                showNotice('пока функционала нет');
+            }
+        });
+
+        // --- Иконки поиска и корзины ---
+        const noticeTriggers = document.querySelectorAll('.notice-trigger');
+        noticeTriggers.forEach(trigger => {
+            trigger.addEventListener('click', function() {
+                showNotice('пока функционала нет');
+            });
         });
 
         // --- Выпадающая панель ---
@@ -614,22 +702,6 @@
 
         avatarToggle.addEventListener('click', function() {
             logoPanel.classList.toggle('open');
-        });
-
-        // --- Уведомление в шапке ---
-        const noticeTriggers = document.querySelectorAll('.notice-trigger');
-        const headerNotice = document.getElementById('headerNotice');
-        let noticeTimeout;
-
-        noticeTriggers.forEach(trigger => {
-            trigger.addEventListener('click', function() {
-                clearTimeout(noticeTimeout);
-                headerNotice.classList.add('show');
-
-                noticeTimeout = setTimeout(() => {
-                    headerNotice.classList.remove('show');
-                }, 4000);
-            });
         });
     </script>
 </body>
