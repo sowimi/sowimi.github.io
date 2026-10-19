@@ -345,7 +345,7 @@
             <img src="https://github.com/sowimi.png" alt="Logo" class="logo-avatar" id="avatarToggle">
             <div class="header-info" id="headerInfo">
                 <span class="header-username" id="headerUsername">@sowimi</span>
-                <span class="header-notice" id="headerNotice">увы, пока функционала нет</span>
+                <span class="header-notice" id="headerNotice">функционала нет</span>
             </div>
         </div>
         
@@ -446,7 +446,7 @@
     <div class="player-bar" id="playerBar">
         <div class="player-info-row">
             <div class="player-title-wrapper">
-                <div class="player-title" id="playerTitle">Трек дня: Father Dom feat. Timex Social Club - Rumors</div>
+                <div class="player-title" id="playerTitle">Father Dom feat. Timex Social Club - Rumors</div>
             </div>
             <div class="player-close" id="playerClose" role="button" tabindex="0" aria-label="Закрыть плеер">
                 <svg viewBox="0 0 24 24" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -469,13 +469,26 @@
         </div>
     </div>
 
-    <!-- АУДИО ЭЛЕМЕНТ (ссылка на файлообменник) -->
+    <!-- АУДИО ЭЛЕМЕНТ -->
     <audio id="bgMusic" loop preload="auto">
-        <source src="https://pdftourl.net/audio/1792434722033-ce4ac685-a6df-4775-8ca7-68ade92e2db8.mp3" type="audio/mpeg">
+        <source src="" type="audio/mpeg">
         Ваш браузер не поддерживает аудио.
     </audio>
 
     <script>
+        // --- ТРЕКИ ---
+        const tracks = {
+            base: "https://pdftourl.net/audio/1792434722033-ce4ac685-a6df-4775-8ca7-68ade92e2db8.mp3", // Rumors
+            gif1: "https://pdftourl.net/audio/1792437779399-e10287d3-7734-41f2-a838-a76979ec4477.mp3", // KATO
+            gif2: "https://pdftourl.net/audio/1792437845363-59dc8815-09b7-4534-a1ec-989bacb16a02.mp3"  // Rick Astley
+        };
+
+        const titles = {
+            base: "Father Dom feat. Timex Social Club - Rumors",
+            gif1: "KATO - Turn the light off",
+            gif2: "Rick Astley - Never Gonna Give You Up"
+        };
+
         // --- ЛОГИКА КАРТЫ ---
         const cardScene = document.getElementById('flipCardScene');
         const card = document.getElementById('flipCard');
@@ -524,6 +537,7 @@
             }
         });
 
+        // Показ текста "функционала нет"
         function showNotice() {
             clearTimeout(noticeTimeout);
             headerInfo.classList.add('show-notice');
@@ -545,6 +559,7 @@
                 cardBack.classList.remove('show-gif-2');
                 cardBack.classList.add('show-gif-1');
                 flipToImage();
+                changeTrack('gif1');
             } else {
                 showNotice();
             }
@@ -556,6 +571,7 @@
                 cardBack.classList.remove('show-gif-1');
                 cardBack.classList.add('show-gif-2');
                 flipToImage();
+                changeTrack('gif2');
             } else {
                 showNotice();
             }
@@ -588,9 +604,21 @@
             subtitleContainer.classList.remove('changed');
             bottomContainer.classList.remove('changed');
             logoPanel.classList.toggle('open');
+
+            // --- СБРОС МУЗЫКИ ПРИ КЛИКЕ НА АВАТАР ---
+            if (!bgMusic.paused) {
+                bgMusic.pause();
+                isMusicPlaying = false;
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
+                playPauseBtn.setAttribute('aria-label', 'Воспроизвести');
+                musicToggle.classList.remove('playing');
+            }
+            // Возвращаем базовый трек (Rumors)
+            changeTrack('base');
         });
 
-        // --- ЛОГИКА ПЛЕЕРА (УПРОЩЁННАЯ) ---
+        // --- ЛОГИКА ПЛЕЕРА ---
         const bgMusic = document.getElementById('bgMusic');
         const musicToggle = document.getElementById('musicToggle');
         const playerBar = document.getElementById('playerBar');
@@ -608,6 +636,34 @@
         let isPlayerOpen = false;
 
         bgMusic.volume = 0.3;
+
+        // Функция смены трека
+        function changeTrack(trackKey) {
+            const source = bgMusic.querySelector('source');
+            source.src = tracks[trackKey];
+            playerTitle.textContent = titles[trackKey];
+            
+            // Перезагружаем аудио
+            bgMusic.load();
+            
+            // Сбрасываем прогресс-бар
+            progressFill.style.width = '0%';
+            currentTimeEl.textContent = '0:00';
+            totalTimeEl.textContent = '0:00';
+            
+            // Если музыка играла, пробуем запустить новый трек
+            if (isMusicPlaying) {
+                const playPromise = bgMusic.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.error("Ошибка при смене трека:", error);
+                    });
+                }
+            }
+        }
+
+        // Устанавливаем базовый трек (Rumors) при загрузке
+        changeTrack('base');
 
         function formatTime(seconds) {
             if (isNaN(seconds)) return "0:00";
@@ -653,7 +709,6 @@
                         openPlayer();
                     }).catch(error => {
                         console.error("Ошибка воспроизведения:", error);
-                        // Сбрасываем иконки, если не удалось
                         playIcon.style.display = 'block';
                         pauseIcon.style.display = 'none';
                         playPauseBtn.setAttribute('aria-label', 'Воспроизвести');
