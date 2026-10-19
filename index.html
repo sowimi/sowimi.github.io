@@ -246,7 +246,6 @@
             width: 100%;
             display: flex;
             justify-content: center;
-            /* ИЗМЕНЕНИЕ: было -16px, прибавили 8px, стало -8px */
             margin-top: -8px; 
             transform: rotate(-5deg);
             position: relative;
@@ -497,7 +496,6 @@
                         <!-- ЛИЦЕВАЯ СТОРОНА (Визитка) -->
                         <div class="card-side card-front">
                             
-                            <!-- Верхняя зона: Телефон и Компания -->
                             <div class="bc-top">
                                 <div class="bc-phone">212 555 6342</div>
                                 <div class="bc-company">
@@ -506,13 +504,11 @@
                                 </div>
                             </div>
 
-                            <!-- Центральная зона: Имя и Должность -->
                             <div class="bc-center">
                                 <div class="name">Patrick Bateman</div>
                                 <div class="title">Vice President</div>
                             </div>
 
-                            <!-- Нижняя зона: Адрес -->
                             <div class="bc-bottom">
                                 358 Exchange Place, New York, N.Y. 100099<br>fax 212 555 6390 telex 10 4534
                             </div>
@@ -668,13 +664,20 @@
             });
         });
 
+        // --- ВОТ ОНА, ВОЛШЕБНАЯ СТРОЧКА ---
         const avatarToggle = document.getElementById('avatarToggle');
+        const logoPanel = document.getElementById('logoPanel');
+
         avatarToggle.addEventListener('click', function() {
+            // 1. Возвращаем карту (убираем гифки и переворачиваем обратно)
             cardBack.classList.remove('show-gif-1', 'show-gif-2');
             if (isShowingName) {
                 card.classList.remove('is-flipped');
                 isShowingName = false;
             }
+            
+            // 2. Открываем/закрываем панель с логотипами
+            logoPanel.classList.toggle('open');
         });
     </script>
 </body>
