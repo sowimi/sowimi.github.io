@@ -39,20 +39,61 @@
             gap: 10px;
         }
 
-        .header-notice {
+        .logo-avatar {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+            display: block;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .logo-avatar:active {
+            transform: scale(0.9);
+        }
+
+        .header-info {
+            position: relative;
+            width: 160px;
+            height: 20px;
+            display: flex;
+            align-items: center;
             font-size: 13px;
             font-weight: 500;
-            color: #1d1d1f;
-            opacity: 0;
-            transform: translateX(-10px);
+        }
+
+        .header-username,
+        .header-notice {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
             transition: opacity 0.4s ease, transform 0.4s ease;
             white-space: nowrap;
             pointer-events: none;
         }
 
-        .header-notice.show {
+        .header-username {
+            color: #1d1d1f;
             opacity: 1;
-            transform: translateX(0);
+        }
+
+        .header-notice {
+            color: #1d1d1f; 
+            opacity: 0;
+            transform: translateY(-50%) translateX(-10px);
+        }
+
+        .header-info.show-notice .header-username {
+            opacity: 0;
+            transform: translateY(-50%) translateX(10px);
+        }
+
+        .header-info.show-notice .header-notice {
+            opacity: 1;
+            transform: translateY(-50%) translateX(0);
         }
 
         .icon {
@@ -68,21 +109,6 @@
         }
         
         .icon:hover { opacity: 0.6; }
-
-        .logo-avatar {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            object-fit: cover;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-            display: block;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .logo-avatar:active {
-            transform: scale(0.9);
-        }
 
         .nav-icons {
             display: flex;
@@ -121,31 +147,9 @@
             padding: 10px 0 0 0;
         }
 
-        .title-icon-main {
-            width: 59px;
-            height: 66px;
-            object-fit: contain;
-            display: block;
-            flex-shrink: 0;
-        }
-
-        .title-icon-side {
-            width: 30px;
-            height: 34px;
-            object-fit: contain;
-            display: block;
-            opacity: 0.8;
-            flex-shrink: 0;
-        }
-
-        .title-icon-big-side {
-            width: 38px;
-            height: 42px;
-            object-fit: contain;
-            display: block;
-            opacity: 0.9;
-            flex-shrink: 0;
-        }
+        .title-icon-main { width: 59px; height: 66px; object-fit: contain; display: block; flex-shrink: 0; }
+        .title-icon-side { width: 30px; height: 34px; object-fit: contain; display: block; opacity: 0.8; flex-shrink: 0; }
+        .title-icon-big-side { width: 38px; height: 42px; object-fit: contain; display: block; opacity: 0.9; flex-shrink: 0; }
 
         .logo-adidas { position: relative; top: 4px; }
         .logo-steam { width: 32px; height: 36px; position: relative; top: 4px; }
@@ -202,36 +206,12 @@
         }
 
         .btn:active { opacity: 0.7; }
+        .btn-primary { background-color: #1d1d1f; color: #ffffff; border: 1px solid #1d1d1f; }
+        .btn-secondary { background-color: transparent; color: #1d1d1f; border: 1px solid #1d1d1f; }
 
-        .btn-primary {
-            background-color: #1d1d1f;
-            color: #ffffff;
-            border: 1px solid #1d1d1f;
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: #1d1d1f;
-            border: 1px solid #1d1d1f;
-        }
-
-        /* --- КОНТЕЙНЕРЫ ДЛЯ ТЕКСТОВ --- */
-        .text-container {
-            position: relative;
-            width: 100%;
-            transition: height 0.4s ease;
-        }
-
-        .subtitle-container {
-            height: 70px;
-            margin-top: 20px;
-            margin-bottom: 25px;
-        }
-
-        .bottom-container {
-            height: 30px;
-            margin-top: 25px;
-        }
+        .text-container { position: relative; width: 100%; transition: height 0.4s ease; }
+        .subtitle-container { height: 70px; margin-top: 20px; margin-bottom: 25px; }
+        .bottom-container { height: 30px; margin-top: 25px; }
 
         .subtitle, .bottom-text {
             position: absolute;
@@ -242,15 +222,8 @@
             transition: opacity 0.4s ease, transform 0.4s ease;
         }
 
-        .subtitle {
-            font-size: 19px;
-            line-height: 1.3;
-            color: #1d1d1f;
-        }
-
-        .text-new.subtitle {
-            font-size: 19px;
-        }
+        .subtitle { font-size: 19px; line-height: 1.3; color: #1d1d1f; }
+        .text-new.subtitle { font-size: 19px; }
 
         .text-new .big-amount {
             font-size: 32px;
@@ -260,49 +233,20 @@
             margin-bottom: 4px;
         }
 
-        .text-new .amount-tail {
-            display: block;
-            font-size: 17px;
-            color: #86868b;
-            font-weight: 400;
-        }
+        .text-new .amount-tail { display: block; font-size: 17px; color: #86868b; font-weight: 400; }
+        .bottom-text { font-size: 17px; line-height: 1.3; color: #86868b; }
 
-        .bottom-text {
-            font-size: 17px;
-            line-height: 1.3;
-            color: #86868b;
-        }
-
-        .text-old {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
-
-        .text-new {
-            opacity: 0;
-            transform: translateY(10px);
-            pointer-events: none;
-        }
-
-        .changed .text-old {
-            opacity: 0;
-            transform: translateY(-10px);
-            pointer-events: none;
-        }
-
-        .changed .text-new {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
+        .text-old { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        .text-new { opacity: 0; transform: translateY(10px); pointer-events: none; }
+        .changed .text-old { opacity: 0; transform: translateY(-10px); pointer-events: none; }
+        .changed .text-new { opacity: 1; transform: translateY(0); pointer-events: auto; }
 
         /* Карта */
         .card-wrapper {
             width: 100%;
             display: flex;
             justify-content: center;
-            margin-top: 20px;
+            margin-top: -16px; 
             transform: rotate(-5deg);
             position: relative;
         }
@@ -310,7 +254,7 @@
         .card-scene {
             width: 100%;
             max-width: 400px;
-            aspect-ratio: 1.58 / 1;
+            aspect-ratio: 1.58 / 1; 
             perspective: 1200px;
             cursor: pointer;
         }
@@ -321,12 +265,10 @@
             position: relative;
             transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
             transform-style: preserve-3d;
-            transform: rotateY(180deg);
+            transform: rotateY(180deg); 
         }
 
-        .card.is-flipped {
-            transform: rotateY(0deg);
-        }
+        .card.is-flipped { transform: rotateY(0deg); } 
 
         .card-side {
             position: absolute;
@@ -342,29 +284,79 @@
         }
 
         .card.gold-border .card-side {
-            box-shadow: 
-                0 0 0 2px #d4af37,
-                0 25px 50px -12px rgba(0, 0, 0, 0.25), 
-                0 0 0 1px rgba(0,0,0,0.05);
+            box-shadow: 0 0 0 2px #d4af37, 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0,0,0,0.05);
         }
 
+        /* ЛИЦЕВАЯ СТОРОНА (Визитка) */
         .card-front {
             background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            padding: 20px;
+            /* Распределяем элементы по вертикали: верх, центр, низ */
+            justify-content: space-between; 
+            padding: 15px 20px;
             z-index: 2;
         }
 
-        .card-front .card-name {
-            font-size: 12px;
-            color: #888;
+        /* Общие стили для текста визитки */
+        .card-front p {
+            color: #1d1d1f;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        /* ВЕРХНЯЯ ЗОНА (Номер слева, Компания справа) */
+        .bc-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+            font-size: 8px;
             letter-spacing: 0.5px;
-            text-transform: uppercase;
+        }
+
+        .bc-phone {
             text-align: left;
         }
 
+        .bc-company {
+            text-align: right;
+            text-transform: uppercase;
+        }
+
+        .bc-company strong {
+            font-size: 9px;
+            display: block;
+        }
+
+        /* ЦЕНТРАЛЬНАЯ ЗОНА (Имя) */
+        .bc-center {
+            text-align: center;
+            width: 100%;
+        }
+
+        .bc-center .name {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .bc-center .title {
+            font-size: 10px;
+            font-style: italic;
+            color: #555;
+            margin-top: 2px;
+        }
+
+        /* НИЖНЯЯ ЗОНА (Адрес) */
+        .bc-bottom {
+            text-align: left;
+            width: 100%;
+            font-size: 7px;
+            letter-spacing: 0.3px;
+        }
+
+        /* ОБРАТНАЯ СТОРОНА (Картинки) */
         .card-back {
             background: #fff;
             transform: rotateY(180deg);
@@ -372,7 +364,6 @@
             position: relative;
         }
 
-        /* --- ТРИ СЛОЯ НА ОБРАТНОЙ СТОРОНЕ --- */
         .card-back-img {
             position: absolute;
             top: 0;
@@ -385,30 +376,25 @@
             transition: filter 0.3s ease, opacity 0.5s ease;
         }
 
-        /* Хамелеон */
-        .card-back-img.chameleon {
-            z-index: 1;
-        }
+        .card-back-img.chameleon { z-index: 1; }
         .card-back-img.chameleon.bw { filter: grayscale(100%); }
         .card-back-img.chameleon.color { filter: grayscale(0%); }
 
-        /* Гифки (изначально скрыты) */
         .card-back-img.gif-1,
         .card-back-img.gif-2 {
             opacity: 0;
             z-index: 2;
         }
 
-        /* Показ гифки 1 */
         .card-back.show-gif-1 .chameleon { opacity: 0; }
         .card-back.show-gif-1 .gif-1 { opacity: 1; }
         .card-back.show-gif-1 .gif-2 { opacity: 0; }
 
-        /* Показ гифки 2 */
         .card-back.show-gif-2 .chameleon { opacity: 0; }
         .card-back.show-gif-2 .gif-2 { opacity: 1; }
         .card-back.show-gif-2 .gif-1 { opacity: 0; }
 
+        /* --- СОЦСЕТИ --- */
         .social-section {
             padding-top: 30px;
             border-top: 1px solid #d2d2d7;
@@ -428,41 +414,16 @@
             transition: opacity 0.2s;
             width: 100%;
             padding: 6px 0;
+            pointer-events: none;
         }
 
-        .social-link:hover { opacity: 0.6; }
-
-        .social-icon {
-            width: 24px;
-            height: 24px;
-            flex-shrink: 0;
-            fill: #1d1d1f;
-        }
-
-        .social-text {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-            line-height: 1.3;
-        }
-
-        .social-name {
-            font-size: 15px;
-            font-weight: 500;
-            color: #1d1d1f;
-        }
-
-        .social-username {
-            font-size: 14px;
-            color: #86868b;
-        }
+        .social-icon { width: 24px; height: 24px; flex-shrink: 0; fill: #1d1d1f; }
+        .social-text { display: flex; flex-direction: column; text-align: left; line-height: 1.3; }
+        .social-name { font-size: 15px; font-weight: 500; color: #1d1d1f; }
+        .social-username { font-size: 14px; color: #86868b; }
 
         @media (max-width: 350px) {
-            .buttons.visible { 
-                flex-direction: column; 
-                align-items: center;
-                max-height: 120px;
-            }
+            .buttons.visible { flex-direction: column; align-items: center; max-height: 120px; }
             .btn { width: 100%; }
             .logo-panel { gap: 6px; }
             .title-icon-side { width: 24px; height: 28px; }
@@ -470,13 +431,13 @@
             .title-icon-main { width: 50px; height: 56px; }
             .logo-steam { width: 26px; height: 30px; }
             .logo-nike { width: 34px; height: 38px; }
-            .header-notice { font-size: 11px; }
             .subtitle { font-size: 16px; }
             .bottom-text { font-size: 15px; }
             .subtitle-container { height: 64px; }
             .bottom-container { height: 28px; }
             .text-new .big-amount { font-size: 28px; }
             .text-new .amount-tail { font-size: 15px; }
+            .header-info { width: 140px; font-size: 11px; }
         }
     </style>
 </head>
@@ -485,7 +446,11 @@
     <header>
         <div class="header-left">
             <img src="https://avatars.githubusercontent.com/u/86235949?s=400&u=e8d594fccc52cfb4cce57e3772430409782c3887&v=4" alt="Logo" class="logo-avatar" id="avatarToggle">
-            <span class="header-notice" id="headerNotice">пока функционала нет</span>
+            
+            <div class="header-info" id="headerInfo">
+                <span class="header-username" id="headerUsername">@sowimi</span>
+                <span class="header-notice" id="headerNotice">увы, пока функционала нет</span>
+            </div>
         </div>
         
         <div class="nav-icons">
@@ -529,19 +494,37 @@
             <div class="card-wrapper">
                 <div class="card-scene" id="flipCardScene">
                     <div class="card" id="flipCard">
+                        
+                        <!-- ЛИЦЕВАЯ СТОРОНА (Визитка) -->
                         <div class="card-side card-front">
-                            <div class="card-name">Andrey Muravyov</div>
+                            
+                            <!-- Верхняя зона: Телефон и Компания -->
+                            <div class="bc-top">
+                                <div class="bc-phone">212 555 6342</div>
+                                <div class="bc-company">
+                                    <strong>Pierce & Pierce</strong>
+                                    Mergers and Acquisitions
+                                </div>
+                            </div>
+
+                            <!-- Центральная зона: Имя и Должность -->
+                            <div class="bc-center">
+                                <div class="name">Patrick Bateman</div>
+                                <div class="title">Vice President</div>
+                            </div>
+
+                            <!-- Нижняя зона: Адрес -->
+                            <div class="bc-bottom">
+                                358 Exchange Place, New York, N.Y. 100099<br>fax 212 555 6390 telex 10 4534
+                            </div>
+
                         </div>
+                        
+                        <!-- ОБРАТНАЯ СТОРОНА (Картинки и Гифки) -->
                         <div class="card-side card-back" id="cardBack">
-                            <!-- Хамелеон -->
                             <img src="https://thumb.wikimedia.org/wikipedia/ru/thumb/9/91/Chameleon_%28Dmitri_Smerdyakov%29.png/960px-Chameleon_%28Dmitri_Smerdyakov%29.png?utm_source=ru.wikipedia.org&utm_campaign=parser&utm_content=thumbnail" alt="Chameleon Art" id="chameleonImg" class="card-back-img chameleon bw">
                             
-                            <!-- ГИФКА 1 (для кнопки «Поехали») -->
-                            <!-- ЗАМЕНИ ССЫЛКУ -->
                             <img src="https://c.tenor.com/iIQj7WAkiyQAAAAd/tenor.gif" alt="GIF 1" class="card-back-img gif-1">
-                            
-                            <!-- ГИФКА 2 (для кнопки «Узнать больше») -->
-                            <!-- ЗАМЕНИ ССЫЛКУ -->
                             <img src="https://c.tenor.com/Lw4_T2lRPGoAAAAd/tenor.gif" alt="GIF 2" class="card-back-img gif-2">
                         </div>
                     </div>
@@ -564,40 +547,39 @@
         </section>
 
         <section class="social-section">
-            <a href="https://github.com/sowimi" target="_blank" class="social-link">
+            <div class="social-link">
                 <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
                 </svg>
                 <div class="social-text">
                     <span class="social-name">GitHub</span>
-                    <span class="social-username">@sowimi</span>
+                    <span class="social-username">@example</span>
                 </div>
-            </a>
+            </div>
 
-            <a href="https://t.me/nullvoidzero" target="_blank" class="social-link">
+            <div class="social-link">
                 <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
                 </svg>
                 <div class="social-text">
                     <span class="social-name">Telegram</span>
-                    <span class="social-username">@nullvoidzero</span>
+                    <span class="social-username">@example</span>
                 </div>
-            </a>
+            </div>
 
-            <a href="mailto:muravyov.andrey.m@gmail.com" class="social-link">
+            <div class="social-link">
                 <svg class="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                 </svg>
                 <div class="social-text">
                     <span class="social-name">Gmail</span>
-                    <span class="social-username">muravyov.andrey.m@gmail.com</span>
+                    <span class="social-username">@example</span>
                 </div>
-            </a>
+            </div>
         </section>
     </main>
 
     <script>
-        // --- Логика переворота карты ---
         const cardScene = document.getElementById('flipCardScene');
         const card = document.getElementById('flipCard');
         const chameleonImg = document.getElementById('chameleonImg');
@@ -605,12 +587,14 @@
         const actionButtons = document.getElementById('actionButtons');
         const subtitleContainer = document.getElementById('subtitleContainer');
         const bottomContainer = document.getElementById('bottomContainer');
+        const headerInfo = document.getElementById('headerInfo');
         
         let isShowingName = false;
         let imageShowCount = 1;
         let hasFlippedOnce = false;
         let isUnlocked = false;
         const COLOR_START = 5;
+        let noticeTimeout;
 
         cardScene.addEventListener('click', function() {
             card.classList.toggle('is-flipped');
@@ -640,21 +624,15 @@
             }
         });
 
-        // --- Уведомление в шапке ---
-        const headerNotice = document.getElementById('headerNotice');
-        let noticeTimeout;
-
-        function showNotice(text) {
+        function showNotice() {
             clearTimeout(noticeTimeout);
-            headerNotice.textContent = text;
-            headerNotice.classList.add('show');
+            headerInfo.classList.add('show-notice');
 
             noticeTimeout = setTimeout(() => {
-                headerNotice.classList.remove('show');
+                headerInfo.classList.remove('show-notice');
             }, 4000);
         }
 
-        // --- Вспомогательная функция: перевернуть карту на картинку ---
         function flipToImage() {
             if (isShowingName) {
                 card.classList.remove('is-flipped');
@@ -662,46 +640,42 @@
             }
         }
 
-        // --- Кнопка «Поехали» (гифка 1) ---
         const btnGo = document.getElementById('btnGo');
         btnGo.addEventListener('click', function() {
             if (isUnlocked) {
-                // Показываем гифку 1
                 cardBack.classList.remove('show-gif-2');
                 cardBack.classList.add('show-gif-1');
                 flipToImage();
             } else {
-                showNotice('пока функционала нет');
+                showNotice();
             }
         });
 
-        // --- Кнопка «Узнать больше» (гифка 2) ---
         const btnMore = document.getElementById('btnMore');
         btnMore.addEventListener('click', function() {
             if (isUnlocked) {
-                // Показываем гифку 2
                 cardBack.classList.remove('show-gif-1');
                 cardBack.classList.add('show-gif-2');
                 flipToImage();
             } else {
-                showNotice('пока функционала нет');
+                showNotice();
             }
         });
 
-        // --- Иконки поиска и корзины ---
         const noticeTriggers = document.querySelectorAll('.notice-trigger');
         noticeTriggers.forEach(trigger => {
             trigger.addEventListener('click', function() {
-                showNotice('пока функционала нет');
+                showNotice();
             });
         });
 
-        // --- Выпадающая панель ---
         const avatarToggle = document.getElementById('avatarToggle');
-        const logoPanel = document.getElementById('logoPanel');
-
         avatarToggle.addEventListener('click', function() {
-            logoPanel.classList.toggle('open');
+            cardBack.classList.remove('show-gif-1', 'show-gif-2');
+            if (isShowingName) {
+                card.classList.remove('is-flipped');
+                isShowingName = false;
+            }
         });
     </script>
 </body>
