@@ -33,6 +33,28 @@
             z-index: 100;
         }
 
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-notice {
+            font-size: 13px;
+            font-weight: 500;
+            color: #1d1d1f;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .header-notice.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
         .icon {
             width: 20px;
             height: 20px;
@@ -54,70 +76,12 @@
             object-fit: cover;
             box-shadow: 0 1px 3px rgba(0,0,0,0.15);
             display: block;
+            cursor: pointer;
+            transition: transform 0.2s;
         }
 
-        /* --- РЯД С ЛОГОТИПАМИ --- */
-        .title {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            margin: 0;
-            padding: 10px 0 0 0;
-            line-height: 0;
-            flex-wrap: nowrap;
-        }
-
-        /* Главный логотип (Team Spirit) */
-        .title-icon-main {
-            width: 59px;
-            height: 66px;
-            object-fit: contain;
-            display: block;
-            flex-shrink: 0;
-        }
-
-        /* Обычные боковые логотипы (Apple) */
-        .title-icon-side {
-            width: 30px;
-            height: 34px;
-            object-fit: contain;
-            display: block;
-            opacity: 0.8;
-            flex-shrink: 0;
-        }
-
-        /* Увеличенные боковые логотипы (Adidas, Nike) */
-        .title-icon-big-side {
-            width: 38px;
-            height: 42px;
-            object-fit: contain;
-            display: block;
-            opacity: 0.9;
-            flex-shrink: 0;
-        }
-
-        /* --- СМЕЩЕНИЕ И РАЗМЕРЫ --- */
-        /* Adidas: ниже на 4px */
-        .logo-adidas {
-            position: relative;
-            top: 4px;
-        }
-
-        /* Steam: чуть меньше (32×36) и ниже на 4px */
-        .logo-steam {
-            width: 32px;
-            height: 36px;
-            position: relative;
-            top: 4px;
-        }
-
-        /* Nike: чуть больше (42×46) и ниже на 4px */
-        .logo-nike {
-            width: 42px;
-            height: 46px;
-            position: relative;
-            top: 4px;
+        .logo-avatar:active {
+            transform: scale(0.9);
         }
 
         .nav-icons {
@@ -133,21 +97,74 @@
             text-align: center;
         }
 
-        .hero-section { margin-bottom: 40px; }
+        .logo-panel {
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-15px);
+            overflow: hidden;
+            transition: 
+                max-height 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.6s ease-out 0.15s,
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                padding 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            padding: 0;
+        }
 
-        .subtitle {
-            font-size: 19px;
-            line-height: 1.3;
-            margin-top: 5px;
-            margin-bottom: 25px;
-            color: #1d1d1f;
+        .logo-panel.open {
+            max-height: 120px;
+            opacity: 1;
+            transform: translateY(0);
+            padding: 10px 0 0 0;
+        }
+
+        .title-icon-main {
+            width: 59px;
+            height: 66px;
+            object-fit: contain;
+            display: block;
+            flex-shrink: 0;
+        }
+
+        .title-icon-side {
+            width: 30px;
+            height: 34px;
+            object-fit: contain;
+            display: block;
+            opacity: 0.8;
+            flex-shrink: 0;
+        }
+
+        .title-icon-big-side {
+            width: 38px;
+            height: 42px;
+            object-fit: contain;
+            display: block;
+            opacity: 0.9;
+            flex-shrink: 0;
+        }
+
+        .logo-adidas { position: relative; top: 4px; }
+        .logo-steam { width: 32px; height: 36px; position: relative; top: 4px; }
+        .logo-nike { width: 42px; height: 46px; position: relative; top: 4px; }
+
+        .hero-section { 
+            margin-bottom: 40px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .buttons {
             display: flex;
             gap: 12px;
             justify-content: center;
+            margin-top: 20px;
             margin-bottom: 35px;
+            width: 100%;
         }
 
         .btn {
@@ -174,6 +191,13 @@
             border: 1px solid #1d1d1f;
         }
 
+        .subtitle {
+            font-size: 19px;
+            line-height: 1.3;
+            margin-bottom: 25px;
+            color: #1d1d1f;
+        }
+
         .card-wrapper {
             width: 100%;
             display: flex;
@@ -196,10 +220,12 @@
             position: relative;
             transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
             transform-style: preserve-3d;
+            /* ИЗМЕНЕНО: по умолчанию карта уже повернута (видна картинка) */
             transform: rotateY(180deg);
         }
 
         .card.is-flipped {
+            /* При клике показываем имя (0deg) */
             transform: rotateY(0deg);
         }
 
@@ -235,6 +261,7 @@
 
         .card-back {
             background: #fff;
+            /* Обратная сторона изначально повернута, чтобы быть скрытой при 0deg */
             transform: rotateY(180deg);
             z-index: 1;
         }
@@ -245,8 +272,11 @@
             object-fit: cover;
             object-position: top;
             display: block;
-            filter: grayscale(100%);
+            transition: filter 0.3s ease;
         }
+
+        .card-back img.color { filter: grayscale(0%); }
+        .card-back img.bw { filter: grayscale(100%); }
 
         .bottom-text {
             font-size: 17px;
@@ -277,9 +307,7 @@
             padding: 6px 0;
         }
 
-        .social-link:hover {
-            opacity: 0.6;
-        }
+        .social-link:hover { opacity: 0.6; }
 
         .social-icon {
             width: 24px;
@@ -312,26 +340,30 @@
                 align-items: center;
             }
             .btn { width: 100%; }
-            .title { gap: 6px; }
+            .logo-panel { gap: 6px; }
             .title-icon-side { width: 24px; height: 28px; }
             .title-icon-big-side { width: 30px; height: 34px; }
             .title-icon-main { width: 50px; height: 56px; }
             .logo-steam { width: 26px; height: 30px; }
             .logo-nike { width: 34px; height: 38px; }
+            .header-notice { font-size: 11px; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <img src="https://avatars.githubusercontent.com/u/86235949?s=400&u=e8d594fccc52cfb4cce57e3772430409782c3887&v=4" alt="Logo" class="logo-avatar">
+        <div class="header-left">
+            <img src="https://avatars.githubusercontent.com/u/86235949?s=400&u=e8d594fccc52cfb4cce57e3772430409782c3887&v=4" alt="Logo" class="logo-avatar" id="avatarToggle">
+            <span class="header-notice" id="headerNotice">пока функционала нет</span>
+        </div>
         
         <div class="nav-icons">
-            <svg class="icon" viewBox="0 0 24 24">
+            <svg class="icon notice-trigger" viewBox="0 0 24 24">
                 <circle cx="11" cy="11" r="7"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
-            <svg class="icon" viewBox="0 0 24 24">
+            <svg class="icon notice-trigger" viewBox="0 0 24 24">
                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                 <line x1="3" y1="6" x2="21" y2="6"></line>
                 <path d="M16 10a4 4 0 0 1-8 0"></path>
@@ -346,27 +378,22 @@
 
     <main>
         <section class="hero-section">
-            <div class="title">
-                <!-- Слева: Adidas (top: 4px) и Apple -->
+            <div class="logo-panel" id="logoPanel">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Adidas_2022_logo.svg?utm_source=ru.wikipedia.org&utm_campaign=index&utm_content=original" alt="Adidas" class="title-icon-big-side logo-adidas">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg?utm_source=ru.wikipedia.org&utm_campaign=index&utm_content=original" alt="Apple" class="title-icon-side">
-                
-                <!-- По центру: Team Spirit -->
                 <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/Team_Spirit_new_em.svg/1280px-Team_Spirit_new_em.svg.png?utm_source=ru.wikipedia.org&utm_campaign=index&utm_content=thumbnail" alt="Team Spirit" class="title-icon-main">
-                
-                <!-- Справа: Steam (32×36) и Nike (42×46) -->
                 <img src="https://images.icon-icons.com/2428/PNG/512/steam_black_logo_icon_147078.png" alt="Steam" class="title-icon-side logo-steam">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg?utm_source=ru.wikipedia.org&utm_campaign=index&utm_content=original" alt="Nike" class="title-icon-big-side logo-nike">
             </div>
-            
-            <p class="subtitle">
-                Обстоятельства порой<br>сильнее нас.
-            </p>
             
             <div class="buttons">
                 <a href="#" class="btn btn-primary">Поехали</a>
                 <a href="#" class="btn btn-secondary">Узнать больше</a>
             </div>
+
+            <p class="subtitle">
+                Обстоятельства порой<br>сильнее нас.
+            </p>
 
             <div class="card-wrapper">
                 <div class="card-scene" id="flipCardScene">
@@ -375,7 +402,8 @@
                             <div class="card-name">Andrey Muravyov</div>
                         </div>
                         <div class="card-side card-back">
-                            <img src="https://thumb.wikimedia.org/wikipedia/ru/thumb/9/91/Chameleon_%28Dmitri_Smerdyakov%29.png/960px-Chameleon_%28Dmitri_Smerdyakov%29.png?utm_source=ru.wikipedia.org&utm_campaign=parser&utm_content=thumbnail" alt="Chameleon Art">
+                            <!-- Стартуем с ЧБ -->
+                            <img src="https://thumb.wikimedia.org/wikipedia/ru/thumb/9/91/Chameleon_%28Dmitri_Smerdyakov%29.png/960px-Chameleon_%28Dmitri_Smerdyakov%29.png?utm_source=ru.wikipedia.org&utm_campaign=parser&utm_content=thumbnail" alt="Chameleon Art" id="chameleonImg" class="bw">
                         </div>
                     </div>
                 </div>
@@ -420,11 +448,58 @@
     </main>
 
     <script>
+        // --- Логика переворота карты ---
         const cardScene = document.getElementById('flipCardScene');
         const card = document.getElementById('flipCard');
+        const chameleonImg = document.getElementById('chameleonImg');
         
+        // Старт: карта показывает картинку (ЧБ)
+        let isShowingName = false; 
+        let imageShowCount = 1; // Первый показ уже состоялся (старт)
+        const COLOR_START = 5;  // На 5-м показе картинки она становится цветной
+
         cardScene.addEventListener('click', function() {
             card.classList.toggle('is-flipped');
+            isShowingName = !isShowingName;
+
+            if (!isShowingName) {
+                // Показываем картинку — увеличиваем счётчик
+                imageShowCount++;
+
+                if (imageShowCount >= COLOR_START) {
+                    // 5-й и далее показы — цветная (навсегда)
+                    chameleonImg.classList.remove('bw');
+                    chameleonImg.classList.add('color');
+                } else {
+                    // Показы 1–4 — ЧБ
+                    chameleonImg.classList.remove('color');
+                    chameleonImg.classList.add('bw');
+                }
+            }
+        });
+
+        // --- Выпадающая панель ---
+        const avatarToggle = document.getElementById('avatarToggle');
+        const logoPanel = document.getElementById('logoPanel');
+
+        avatarToggle.addEventListener('click', function() {
+            logoPanel.classList.toggle('open');
+        });
+
+        // --- Уведомление в шапке ---
+        const noticeTriggers = document.querySelectorAll('.notice-trigger');
+        const headerNotice = document.getElementById('headerNotice');
+        let noticeTimeout;
+
+        noticeTriggers.forEach(trigger => {
+            trigger.addEventListener('click', function() {
+                clearTimeout(noticeTimeout);
+                headerNotice.classList.add('show');
+
+                noticeTimeout = setTimeout(() => {
+                    headerNotice.classList.remove('show');
+                }, 4000);
+            });
         });
     </script>
 </body>
